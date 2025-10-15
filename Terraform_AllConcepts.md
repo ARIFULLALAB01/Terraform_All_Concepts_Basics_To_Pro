@@ -239,3 +239,41 @@ Subcommands:
 | **Risk**                 | May fail if Terraform cannot detect indirect dependencies.                                                                           | Safe for complex scenarios where order is critical.                                                                                                   |
 | **Ideal For**            | Simple relationships where one resource references another.                                                                          | Complex setups where Terraform cannot infer the dependency automatically.                                                                             |
 | **When to Use**          | Use when one resource’s argument directly uses another resource’s output or attribute.                                               | Use when resources are related indirectly (like file uploads, IAM attachments, or null resources).                                                    |
+
+
+# 🔹 Terraform Commands — Explained Simply
+
+```
+| **Command**                               | **Purpose / Use Case (Simple Explanation)**                                                                                                               |
+| ----------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `terraform init`                          | Initializes the working directory, downloads provider plugins, and sets up backend for the state file. **(Always the first command to run in a project)** |
+| `terraform fmt`                           | Formats Terraform files to maintain a clean and consistent code style.                                                                                    |
+| `terraform validate`                      | Checks your configuration for syntax errors and verifies if the code is valid.                                                                            |
+| `terraform plan`                          | Shows what changes Terraform will make before actually applying them. **(Like a preview)**                                                                |
+| `terraform apply`                         | Applies the planned changes and creates/updates infrastructure.                                                                                           |
+| `terraform destroy`                       | Destroys all resources defined in your configuration. **(Used to tear down environments)**                                                                |
+| `terraform state list`                    | Lists all resources currently tracked in the Terraform state file.                                                                                        |
+| `terraform workspace list`                | Lists all existing Terraform workspaces.                                                                                                                  |
+| `terraform workspace create <name>`       | Creates a new workspace (e.g., dev, test, prod).                                                                                                          |
+| `terraform workspace select <name>`       | Switches between different workspaces.                                                                                                                    |
+| `terraform taint <resource>`              | Marks a resource for recreation during the next apply.                                                                                                    |
+| `terraform untaint <resource>`            | Removes the taint mark, so Terraform won’t recreate that resource.                                                                                        |
+| `terraform apply --auto-approve`          | Runs apply automatically without asking for confirmation.                                                                                                 |
+| `terraform apply --var-file="dev.tfvars"` | Applies configuration using variables from the given `.tfvars` file.                                                                                      |
+| `terraform init --upgrade`                | Upgrades Terraform providers to the latest compatible versions.                                                                                           |
+| `terraform state rm <resource>`           | Removes a resource from the state file (useful when managing resources manually).                                                                         |
+| `terraform destroy -target=<resource>`    | Destroys only the specified resource instead of the whole infrastructure.                                                                                 |
+| `terraform apply -target=<resource>`      | Applies only the specified resource instead of the entire configuration.                                                                                  |
+| `terraform refresh`                       | Updates the state file with the latest real-world resource information from the cloud provider.                                                           |
+| `terraform show`                          | Displays detailed information about resources in the state file.                                                                                          |
+| `terraform output`                        | Shows the values of outputs defined in your configuration.                                                                                                |
+| `terraform graph`                         | Generates a dependency graph of all resources (helps visualize relationships).                                                                            |
+| `terraform import <resource> <id>`        | Brings an existing resource (created manually) under Terraform management.                                                                                |
+| `terraform state show <resource>`         | Displays detailed info about a specific resource from the state file.                                                                                     |
+| `terraform providers`                     | Lists all providers used in your configuration.                                                                                                           |
+| `terraform version`                       | Displays the installed Terraform version.                                                                                                                 |
+| `terraform console`                       | Opens an interactive console to test and evaluate Terraform expressions.                                                                                  |
+| `terraform lock` / `terraform unlock`     | Manages the state lock to prevent concurrent modifications. *(Useful in team setups)*                                                                     |
+| `terraform output -json`                  | Exports Terraform output values in JSON format — useful for automation scripts.                                                                           |
+
+```
