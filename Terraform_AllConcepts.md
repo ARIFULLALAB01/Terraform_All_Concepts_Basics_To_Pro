@@ -206,7 +206,7 @@ Subcommands:
 | **replace_triggered_by**  | Triggers resource replacement when a dependent resource changes        | Automatically replaces the resource if another resource changes                             | **Example:** Replace an **EC2 instance** when a related **security group** or **AMI** changes                          | When a resource must always be replaced in sync with another resource change                     |
 
 
-# Terraform Modules vs Terraform Workspaces — Detailed Comparison
+# 🔹 Terraform Modules vs Terraform Workspaces — Detailed Comparison
 
 
 | **Feature**              | **Terraform Modules**                                                                                             | **Terraform Workspaces**                                                                          |
@@ -223,3 +223,19 @@ Subcommands:
 | **Dependency Handling**  | Modules can call other modules (nested modules)                                                                   | Workspaces cannot call other workspaces                                                           |
 | **Version Control**      | Modules can be versioned and shared (e.g., using Terraform Registry or Git tags)                                  | Workspaces are local or backend-specific, not shared across repos                                 |
 | **When to Use**          | When you need to **reuse and maintain consistent infrastructure code**                                            | When you need **different environments (dev, test, prod)** from the same codebase                 |
+
+
+# 🔹 Terraform Implicit vs Explicit Dependencies — Detailed Comparison
+
+| **Feature**              | **Implicit Dependency**                                                                                                              | **Explicit Dependency**                                                                                                                               |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Definition**           | Terraform automatically understands the **resource dependency** based on references between resources.                               | You **manually define** a dependency using the `depends_on` argument.                                                                                 |
+| **How It Works**         | Terraform looks at expressions and variable references inside a resource (like using another resource’s attribute).                  | Terraform waits to create a resource **only after** the explicitly mentioned dependency is created.                                                   |
+| **Dependency Type**      | **Automatic / Inferred by Terraform**                                                                                                | **Manual / Defined by User**                                                                                                                          |
+| **Configuration Needed** | No need to specify anything manually — Terraform detects dependencies by itself.                                                     | You must specify `depends_on = [resource.name]` to make Terraform aware of the relationship.                                                          |
+| **Example**              | If an EC2 instance uses a Security Group ID from another resource, Terraform automatically knows to create the Security Group first. | If a resource doesn’t have a direct attribute reference but still depends on another (like provisioning after a bucket policy), you use `depends_on`. |
+| **Terraform Behavior**   | Terraform automatically creates resources in the correct order.                                                                      | Terraform follows your manual order based on the dependency you define.                                                                               |
+| **Code Simplicity**      | Cleaner and shorter code — no need for extra dependency blocks.                                                                      | Slightly more verbose but gives **full control** over creation order.                                                                                 |
+| **Risk**                 | May fail if Terraform cannot detect indirect dependencies.                                                                           | Safe for complex scenarios where order is critical.                                                                                                   |
+| **Ideal For**            | Simple relationships where one resource references another.                                                                          | Complex setups where Terraform cannot infer the dependency automatically.                                                                             |
+| **When to Use**          | Use when one resource’s argument directly uses another resource’s output or attribute.                                               | Use when resources are related indirectly (like file uploads, IAM attachments, or null resources).                                                    |
