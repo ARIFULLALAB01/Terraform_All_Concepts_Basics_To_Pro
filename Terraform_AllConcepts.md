@@ -196,6 +196,8 @@ Subcommands:
     azure blob storage 
     GCP storing A/C
 
+# 🔹 Terraform Lifecycle Arguments — Detailed Comparison
+
 | **Lifecycle Argument**    | **Purpose**                                                            | **Behavior**                                                                                | **Real-Time Use Case (Example)**                                                                                       | **When to Use**                                                                                  |
 | ------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
 | **create_before_destroy** | Ensures new resource is created **before** destroying the existing one | Terraform first creates the new resource → then destroys the old one                        | **Example:** Updating an **AWS Load Balancer**, **VM**, or **S3 Bucket** where downtime must be avoided                | When zero-downtime replacement is required (e.g., updating production servers or load balancers) |
